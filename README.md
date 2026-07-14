@@ -1,9 +1,8 @@
 # JS-CODES
-simple JS codes that change how your pages work, i might not update
+# STAR THE REPO PLSSS ⭐⭐
+simple JS codes and hacks that i might not update
 
 # GIVE ME REQUESTS (BE REALISTIC) ON WHAT I SHOULD ADD :)
-
-# STAR THE REPO PLSSS ⭐⭐
 
 # TO USE THIS FOLLOW THESE STEPS:
 1. goto the file you want (using the name and whatnot)
