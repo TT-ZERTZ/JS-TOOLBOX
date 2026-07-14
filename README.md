@@ -1,6 +1,8 @@
 # JS-CODES
 simple JS codes that change how your pages work, i might not update
 
+# GIVE ME REQUESTS (BE REALISTIC) ON WHAT I SHOULD ADD :)
+
 # STAR THE REPO PLSSS ⭐⭐
 
 # TO USE THIS FOLLOW THESE STEPS:
@@ -11,4 +13,4 @@ simple JS codes that change how your pages work, i might not update
 5. make the title anything
 6. put in the code as the URL
 # THEN UR DONE :)
-# when you want it now just click the bookmark lol
+
