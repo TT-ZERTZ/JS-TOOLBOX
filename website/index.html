@@ -150,10 +150,6 @@
             text-decoration: none;
         }
 
-        .btn-drag:active {
-            cursor: grabbing;
-        }
-
         .btn-demo {
             background-color: var(--demo-color);
             border: 1px solid rgba(240,246,252,0.1);
@@ -184,6 +180,15 @@
             text-decoration: none;
         }
 
+        .ai-promo {
+            margin-top: 3rem;
+            padding: 1rem;
+            border: 1px dashed var(--accent-color);
+            border-radius: 6px;
+            text-align: center;
+            max-width: 400px;
+        }
+
         .loading, .error {
             text-align: center;
             color: var(--text-muted);
@@ -200,21 +205,27 @@
 
     <header>
         <h1>JS Toolbox</h1>
-        <p>A collection of my JavaScript utilities and tools.</p>
+        <p>A collection of simple JS codes and hacks.</p>
         <p class="repo-link">Live tracking: <a href="https://github.com/TT-ZERTZ/JS-TOOLBOX" target="_blank">TT-ZERTZ/JS-TOOLBOX</a></p>
     </header>
 
     <div class="instructions">
-        <p><strong>💡 How to use these tools:</strong></p>
+        <p><strong>💡 TO USE THIS FOLLOW THESE STEPS:</strong></p>
         <ol>
-            <li><strong>Bookmarklet:</strong> Make sure your browser's Bookmarks bar is visible (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>). Drag the green button up to your bookmarks bar to use it on any website!</li>
-            <li><strong>Run Demo:</strong> Click the blue "Run Demo" button to instantly execute the script directly on this page for testing.</li>
+            <li>Click the blue <strong>Source</strong> button to go onto the file on GitHub.</li>
+            <li>Click the copy button on GitHub to grab the raw script code.</li>
+            <li>Go to your bookmark bar (if it doesn't show when on a page, click <kbd>Ctrl</kbd> + <kbd>B</kbd>).</li>
+            <li>Add a new page, make the title anything you want, and paste the code as the URL. Then you're done!</li>
         </ol>
     </div>
 
     <main id="tools-container">
         <div class="loading">Scanning folders for JavaScript files...</div>
     </main>
+
+    <div class="ai-promo">
+        🤖 Check out my AI system: <a href="https://hazeyai.pages.dev/" target="_blank">Hazey AI</a>
+    </div>
 
     <script>
         const REPO_OWNER = 'TT-ZERTZ';
@@ -239,13 +250,14 @@
                 
                 const data = await response.json();
                 
+                // Targets CODES and hacks folders, ignores the website folder and markdown files
                 const jsFiles = data.tree.filter(item => {
                     const inTargetFolder = item.path.startsWith('CODES/') || item.path.startsWith('hacks/');
                     return item.type === 'blob' && inTargetFolder && !item.path.endsWith('.md');
                 });
                 
                 if (jsFiles.length === 0) {
-                    container.innerHTML = '<div class="loading">No JavaScript files found inside the target folders.</div>';
+                    container.innerHTML = '<div class="loading">No script files found inside your asset folders. Check your paths!</div>';
                     return;
                 }
                 
@@ -286,7 +298,6 @@
                                 actionsDiv.removeChild(actionsDiv.lastElementChild);
                             }
                             
-                            // 1. Create Bookmarklet Drag Link (Green)
                             const bookmarkletUrl = convertToBookmarklet(rawCode);
                             const dragLink = document.createElement('a');
                             dragLink.href = bookmarkletUrl;
@@ -294,22 +305,19 @@
                             dragLink.className = 'btn-drag';
                             dragLink.onclick = (e) => e.preventDefault(); 
                             
-                            // 2. Create Run Demo Button (Blue)
                             const demoBtn = document.createElement('button');
                             demoBtn.className = 'btn-demo';
                             demoBtn.innerText = 'Run Demo';
                             demoBtn.onclick = () => {
                                 try {
-                                    // Dynamically runs the raw code text on the page safely
                                     const runScript = new Function(rawCode);
                                     runScript();
                                 } catch (err) {
-                                    console.error("Demo failed to run:", err);
-                                    alert(`Demo encountered an error: ${err.message}`);
+                                    console.error("Demo failed:", err);
+                                    alert(`Demo error: ${err.message}`);
                                 }
                             };
                             
-                            // Add both components to the action container
                             actionsDiv.insertBefore(demoBtn, actionsDiv.firstChild);
                             actionsDiv.insertBefore(dragLink, actionsDiv.firstChild);
                         })
@@ -320,7 +328,7 @@
                 
             } catch (error) {
                 console.error('Error fetching data:', error);
-                container.innerHTML = `<div class="error">Failed to load toolbox contents. Make sure your branch name matches line 146 ('main').</div>`;
+                container.innerHTML = `<div class="error">Failed to load toolbox contents. Verify your configuration.</div>`;
             }
         }
 
