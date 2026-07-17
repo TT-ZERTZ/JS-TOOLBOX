@@ -194,9 +194,8 @@
     <script>
         const REPO_OWNER = 'TT-ZERTZ';
         const REPO_NAME = 'JS-TOOLBOX';
-        const BRANCH = 'main'; // Change to 'master' if your main branch uses the older name
+        const BRANCH = 'main'; // If your default branch is called 'master', change this to 'master'
         
-        // Using the recursive Git Trees API to find everything inside subdirectories
         const API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${BRANCH}?recursive=1`;
 
         function convertToBookmarklet(rawCode) {
@@ -215,7 +214,7 @@
                 
                 const data = await response.json();
                 
-                // Filter elements that are files ('blob') and end with '.js'
+                // Finds all files ending with .js anywhere in the project
                 const jsFiles = data.tree.filter(item => item.type === 'blob' && item.path.endsWith('.js'));
                 
                 if (jsFiles.length === 0) {
@@ -226,19 +225,16 @@
                 container.innerHTML = '';
                 
                 jsFiles.forEach(file => {
-                    // Extract path details (e.g., path: "CODES/piano.js")
                     const pathParts = file.path.split('/');
                     const fileName = pathParts[pathParts.length - 1];
                     const folderName = pathParts.length > 1 ? pathParts[0] : 'root';
                     const cleanName = fileName.replace('.js', '');
                     
-                    // Generate unique IDs for standard selectors
                     const elementId = cleanName.replace(/\s+/g, '-').toLowerCase();
                     
                     const card = document.createElement('div');
                     card.className = 'tool-card';
                     
-                    // Build layout with source link and fallback structure
                     const githubHtmlUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/blob/${BRANCH}/${file.path}`;
                     const rawDownloadUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${file.path}`;
 
@@ -255,7 +251,6 @@
                     
                     container.appendChild(card);
 
-                    // Fetch code content to construct the bookmarklet link
                     fetch(rawDownloadUrl)
                         .then(res => res.text())
                         .then(rawCode => {
