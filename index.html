@@ -239,6 +239,9 @@
         const API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${BRANCH}?recursive=1`;
 
         function convertToBookmarklet(rawCode) {
+            if (/^javascript:/i.test(rawCode.trim())) {
+                return rawCode.trim();
+            }
             return 'javascript:(function(){' + encodeURIComponent(rawCode) + '})();';
         }
 
@@ -315,12 +318,32 @@
                                 try {
                                     let cleanCode = rawCode.trim();
                                     
-                                    // Strip out protocol prefix safely if present
-                                    if (/^javascript:/i.test(cleanCode)) {
-                                        cleanCode = cleanCode.replace(/^javascript:/i, '');
+                                    // 1. First, decode standard URL hex signatures if present
+                                    if (cleanCode.includes('%')) {
                                         try {
                                             cleanCode = decodeURIComponent(cleanCode);
-                                        } catch(e) {}
+                                        } catch(e) {
+                                            cleanCode = cleanCode.replace(/%([0-9A-Fa-f]{2})/g, (match, p1) => {
+                                                return String.fromCharCode(parseInt(p1, 16));
+                                            });
+                                        }
+                                    }
+                                    
+                                    // 2. Clear out the leading javascript: scheme
+                                    if (/^javascript:/i.test(cleanCode)) {
+                                        cleanCode = cleanCode.replace(/^javascript:/i, '').trim();
+                                    }
+                                    
+                                    // 3. Clear out wrapping IIFE wrappers if the code was stored pre-baked
+                                    // e.g., matching "(function(){ CODE })()" or "(function(){ CODE })"
+                                    if (cleanCode.startsWith('(') && cleanCode.endsWith(')()')) {
+                                        cleanCode = cleanCode.slice(1, -3); // strips leading '(' and trailing ')()'
+                                        if (cleanCode.startsWith('function(){') && cleanCode.endsWith('}')) {
+                                            cleanCode = cleanCode.slice(11, -1); // isolates code inside function wrapper
+                                        }
+                                    } else if (cleanCode.startsWith('javascript:(function(){') && cleanCode.endsWith('})()')) {
+                                        // Double backup fallback
+                                        cleanCode = cleanCode.replace('javascript:(function(){', '').replace('})()', '');
                                     }
                                     
                                     const runScript = new Function(cleanCode);
