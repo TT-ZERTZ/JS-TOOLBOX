@@ -213,21 +213,28 @@
                 }
                 
                 const data = await response.json();
-                const jsFiles = data.tree.filter(item => item.type === 'blob' && item.path.endsWith('.js'));
+                
+                // Gathers everything inside CODES and hacks folders, ignores markdown files
+                const jsFiles = data.tree.filter(item => {
+                    const inTargetFolder = item.path.startsWith('CODES/') || item.path.startsWith('hacks/');
+                    return item.type === 'blob' && inTargetFolder && !item.path.endsWith('.md');
+                });
                 
                 if (jsFiles.length === 0) {
-                    container.innerHTML = '<div class="loading">No JavaScript files found inside any folders.</div>';
+                    container.innerHTML = '<div class="loading">No JavaScript files found inside the target folders.</div>';
                     return;
                 }
                 
                 container.innerHTML = '';
                 
-                jsFiles.forEach(file => {
+                jsFiles.forEach((file, index) => {
                     const pathParts = file.path.split('/');
                     const fileName = pathParts[pathParts.length - 1];
                     const folderName = pathParts.length > 1 ? pathParts[0] : 'root';
                     const cleanName = fileName.replace('.js', '');
-                    const elementId = cleanName.replace(/\s+/g, '-').toLowerCase();
+                    
+                    // Safe ID configuration using indices to prevent broken HTML attributes
+                    const elementId = `tool-${index}`;
                     
                     const card = document.createElement('div');
                     card.className = 'tool-card';
