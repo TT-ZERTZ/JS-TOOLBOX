@@ -14,3 +14,9 @@ simple JS codes and hacks that i might not update
 6. put in the code as the URL
 # THEN UR DONE :)
 
+# also i made browsers
+https://omnibrowser.pages.dev/
+https://unblockedweb.pages.dev/
+
+
+its a browser with unblocked stuff lol
