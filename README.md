@@ -1,8 +1,8 @@
 # JS-TOOLBOX
 # STAR THE REPO PLSSS ⭐⭐
 simple JS codes and hacks that i might not update
-# USE MY AI https://hazeyai.pages.dev/
-
+# MY FAV SCRIPT [BETTERTUBE](https://github.com/TT-ZERTZ/JS-TOOLBOX/blob/main/hacks/BetterTube)
+IT WORKS ON YT AND YTMUZIC
 # GIVE ME REQUESTS (BE REALISTIC) ON WHAT I SHOULD ADD :)
 
 # TO USE THIS FOLLOW THESE STEPS:
