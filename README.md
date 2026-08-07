@@ -14,9 +14,4 @@ IT WORKS ON YT AND YTMUZIC
 6. put in the code as the URL
 # THEN UR DONE :)
 
-# also i made browsers
-https://omnibrowser.pages.dev/
-https://unblockedweb.pages.dev/
-
-
-its a browser with unblocked stuff lol
+gimme script suggestions pls
