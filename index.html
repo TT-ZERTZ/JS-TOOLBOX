@@ -29,6 +29,35 @@
             align-items: center;
         }
 
+        /* Top-right green button */
+        .top-right-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background-color: var(--success-color);
+            color: #ffffff !important;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            border: 1px solid rgba(240, 246, 252, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            z-index: 9999;
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+
+        .top-right-btn:hover {
+            background-color: #2ea44f;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        .top-right-btn:active {
+            transform: translateY(0);
+        }
+
         header {
             text-align: center;
             margin-bottom: 2rem;
@@ -52,25 +81,6 @@
         .repo-link {
             font-size: 0.9rem;
             color: var(--text-muted);
-        }
-
-        .btn-redirect {
-            display: inline-block;
-            margin-top: 1rem;
-            background-color: var(--accent-color);
-            color: #ffffff;
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            border: 1px solid rgba(240, 246, 252, 0.1);
-            transition: background-color 0.2s ease, transform 0.1s ease;
-        }
-
-        .btn-redirect:hover {
-            background-color: #388bfd;
-            text-decoration: none;
-            transform: translateY(-1px);
         }
 
         .instructions {
@@ -228,11 +238,13 @@
 </head>
 <body>
 
+    <!-- Fixed Green Button in Top-Right Corner -->
+    <a href="https://tt-zertz.github.io/Blooket/" class="top-right-btn">BLOOKET HACKS</a>
+
     <header>
         <h1>JS Toolbox</h1>
         <p>A collection of simple JS codes and hacks.</p>
         <p class="repo-link">Live tracking: <a href="https://github.com/TT-ZERTZ/JS-TOOLBOX" target="_blank">TT-ZERTZ/JS-TOOLBOX</a></p>
-        <a href="https://tt-zertz.github.io/Blooket/" class="btn-redirect">Blooket Hacks Website</a>
     </header>
 
     <div class="instructions">
